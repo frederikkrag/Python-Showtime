@@ -1,0 +1,37 @@
+import re
+
+def analyze_application(text):
+  """
+  Analyzes application text using regular expressions to identify patterns.
+
+  Args:
+    text: The application text as a string.
+
+  Returns:
+    A dictionary containing the identified patterns and their counts.
+  """
+
+  patterns = {
+      "years_of_experience": r"(\d+)\s*(?:år|years)\s*erfaring",
+      "programming_languages": r"(?:Python|Java|C\+\+|JavaScript|C#|Go)",
+      "relevant_skills": r"(?:machine learning|data analysis|cloud computing|project management)",
+      "education_level": r"(?:kandidat|bachelor|master|ph\.d)",
+      "teamwork": r"(?:teamwork|collaboration|kommunikation)",
+
+      # Add more patterns here as needed
+  }
+  results = {}
+  for pattern_name, pattern in patterns.items():
+      matches = re.findall(pattern, text, re.IGNORECASE) #re.IGNORECASE makes it case-insensitive
+      results[pattern_name] = len(matches) if matches else 0
+  return results
+
+#Example usage:
+application_text = """
+Jeg har 5 års erfaring som softwareudvikler. Jeg er dygtig i Python og Java.
+Mine færdigheder omfatter machine learning og cloud computing. Jeg har en kandidatgrad.
+Jeg arbejder godt i teams og har stærke kommunikationsevner. 
+"""
+
+analysis = analyze_application(application_text)
+analysis
